@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>简历项目经历 - AI空间天气预警方案</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --accent: #58a6ff;
+    --accent2: #3fb950;
+    --warn: #f0883e;
+    --red: #f85149;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    padding: 40px 20px;
+  }
+  .container { max-width: 920px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 40px 30px;
+    background: linear-gradient(135deg, #161b22 0%, #1a2332 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 32px;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .header .subtitle { font-size: 15px; color: var(--text-dim); }
+  .header .meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .header .meta span {
+    font-size: 13px;
+    color: var(--text-dim);
+    background: rgba(88,166,255,0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(88,166,255,0.2);
+  }
+
+  /* Section */
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 30px;
+    margin-bottom: 24px;
+  }
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .icon-bg-1 { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .icon-bg-2 { background: rgba(63,185,80,0.15); color: var(--accent2); }
+  .icon-bg-3 { background: rgba(240,136,62,0.15); color: var(--warn); }
+  .icon-bg-4 { background: rgba(248,81,73,0.15); color: var(--red); }
+  .icon-bg-5 { background: rgba(188,140,255,0.15); color: #bc8cff; }
+  .icon-bg-6 { background: rgba(255,176,46,0.15); color: #ffb02e; }
+
+  .subsection { margin-bottom: 18px; }
+  .subsection:last-child { margin-bottom: 0; }
+  .subsection-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .subsection p { font-size: 14px; color: var(--text); margin-bottom: 8px; }
+  .subsection ul { list-style: none; padding-left: 0; }
+  .subsection ul li {
+    font-size: 14px;
+    padding: 4px 0 4px 20px;
+    position: relative;
+  }
+  .subsection ul li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  /* Metrics grid */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .metric-card {
+    background: rgba(88,166,255,0.05);
+    border: 1px solid rgba(88,166,255,0.15);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+  .metric-card .value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent2);
+  }
+  .metric-card .label {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; margin: 12px 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th, td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    background: rgba(88,166,255,0.08);
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  tr:hover { background: rgba(255,255,255,0.02); }
+
+  /* Highlight box */
+  .highlight-box {
+    background: rgba(63,185,80,0.06);
+    border-left: 3px solid var(--accent2);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  .highlight-box strong { color: var(--accent2); }
+
+  .warn-box {
+    background: rgba(240,136,62,0.06);
+    border-left: 3px solid var(--warn);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  .warn-box strong { color: var(--warn); }
+
+  /* Pipeline */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0;
+    padding: 16px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  .pipeline-step {
+    background: rgba(88,166,255,0.1);
+    border: 1px solid rgba(88,166,255,0.2);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .pipeline-arrow { color: var(--text-dim); font-size: 16px; }
+
+  /* Tag */
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 6px;
+    margin-bottom: 4px;
+  }
+  .tag-blue { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .tag-green { background: rgba(63,185,80,0.15); color: var(--accent2); }
+  .tag-orange { background: rgba(240,136,62,0.15); color: var(--warn); }
+
+  /* Capability map */
+  .cap-map {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 0;
+    margin-top: 12px;
+  }
+  .cap-map-item {
+    display: contents;
+  }
+  .cap-label {
+    padding: 12px 16px;
+    background: rgba(88,166,255,0.06);
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .cap-value {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  @media (max-width: 768px) {
+    .cap-map { grid-template-columns: 1fr; }
+    .cap-label { border-right: none; }
+    .pipeline { flex-direction: column; align-items: stretch; }
+    .pipeline-arrow { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>基于深度学习的低地球轨道电子通量预测系统</h1>
+    <div class="subtitle">AI空间天气预警方案 · 0-1全流程独立交付</div>
+    <div class="meta">
+      <span>独立负责人</span>
+      <span>2023.09 - 2025.07</span>
+      <span>Python / PyTorch / ANN / 多源卫星数据</span>
+    </div>
+  </div>
+
+  <!-- 一、项目背景 -->
+  <div class="section">
+    <div class="section-title">
+      <div class="icon icon-bg-1">01</div>
+      项目背景与商业价值判断
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">行业痛点洞察</div>
+      <p>商业航天爆发式增长：LEO卫星市场2023年126亿美元→2029年232亿美元（CAGR 13%），在轨卫星从2970颗增至4363颗。Starlink已部署12000颗（目标42000），中国鸿雁星座300+卫星同步推进。然而辐射带高能电子可穿透卫星屏蔽层导致单粒子翻转，强磁暴可使热层膨胀50%改变轨道衰减——<strong>空间天气预警已成为商业航天刚需基础设施</strong>。</p>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">商业价值拆解</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>维度</th><th>分析</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>预算来源</td><td>卫星运营商保险费用、星座运维预算、航天器设计冗余成本</td></tr>
+            <tr><td>决策链路</td><td>卫星运营方技术安全部门 → 保险公司风险评估 → 航天保险精算模型 → 政策监管</td></tr>
+            <tr><td>ROI体现</td><td>一次准确磁暴预警可帮运营商提前切换安全模式，避免单星数百万美元损失；星座级别可降低保险费率10%-30%</td></tr>
+            <tr><td>替代方案对比</td><td>传统MHD物理模型计算成本高、输入敏感；经验模型极端事件泛化差；本方案数据驱动实现更高性价比</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 二、产品方案设计 -->
+  <div class="section">
+    <div class="section-title">
+      <div class="icon icon-bg-2">02</div>
+      0-1产品方案设计
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">用户角色与使用场景</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>用户角色</th><th>核心诉求</th><th>使用场景</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>卫星运营商调度中心</td><td>提前获知辐射风险窗口</td><td>轨道规划、载荷开关机决策</td></tr>
+            <tr><td>航天保险公司风控</td><td>量化在轨卫星辐射暴露</td><td>保费定价、理赔鉴定</td></tr>
+            <tr><td>空间天气监测机构</td><td>追踪磁暴事件影响范围</td><td>预警发布、应急响应</td></tr>
+            <tr><td>卫星设计工程师</td><td>评估不同轨道辐射环境</td><td>屏蔽层设计、抗辐射选型</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">AI工作流设计</div>
+      <div class="pipeline">
+        <div class="pipeline-step">多源卫星数据采集</div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">数据清洗与时序对齐</div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">时滞特征工程</div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">ANN推理</div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">通量预测输出</div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">风险等级判定</div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">预警决策</div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">第一版产品边界</div>
+      <p>
+        <span class="tag tag-blue">L=3-6 外辐射带核心区</span>
+        <span class="tag tag-green">40-612 keV 能量段</span>
+        <span class="tag tag-orange">90° 投掷角为优势预测区间</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- 三、原型构建 -->
+  <div class="section">
+    <div class="section-title">
+      <div class="icon icon-bg-3">03</div>
+      原型构建与技术实现
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">数据工程（0-1从零搭建）</div>
+      <ul>
+        <li>整合NOAA POES + MetOp-A双卫星系列SEM仪器数据（2013-2019，覆盖完整太阳活动周期）</li>
+        <li>对接OMNI数据集1分钟分辨率太阳风/地磁参数，解决多源异构数据对齐问题</li>
+        <li>设计时滞特征工程：120分钟-12小时多尺度滚动窗口均值，捕获电子通量对太阳风扰动的延迟响应</li>
+        <li>数据清洗：时间插值（60min限制）、去重、NaN处理、MinMax归一化</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">模型架构</div>
+      <ul>
+        <li>核心架构：MLP多层感知机 — 输入层293维 → 隐含层[256, 64, 32]（Sigmoid激活）→ 输出层1维</li>
+        <li>训练策略：MSE损失 + Adam优化器 + L2正则化 + 动态学习率 + 早停机制（30轮patience）</li>
+        <li>数据划分：2013-2017训练 / 随机采样验证 / 2018-2019测试（时间外推验证）</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">可验证结果（Demo核心指标）</div>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="value">0.82-0.92</div>
+          <div class="label">90°投掷角 4能量通道 R值</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">&lt; 0.4</div>
+          <div class="label">全通道 RMSE</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">98.58%</div>
+          <div class="label">外辐射带核心区 误差&lt;1个数量级</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">98.2%</div>
+          <div class="label">静默期预测一致性</div>
+        </div>
+      </div>
+      <div class="highlight-box">
+        <strong>真实事件验证：</strong>准确复现2018年9月磁暴事件中电子通量的增强-衰减-恢复全过程，无显著系统偏差，证明模型具备业务化运行能力。
+      </div>
+    </div>
+  </div>
+
+  <!-- 四、消融实验 -->
+  <div class="section">
+    <div class="section-title">
+      <div class="icon icon-bg-4">04</div>
+      消融实验与方案验证
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">输入变量消融（产品方案验证）</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>模型变体</th><th>RMSE</th><th>R值</th><th>RMSE变化</th><th>R变化</th><th>结论</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>完整模型</td><td>0.385</td><td>0.911</td><td>—</td><td>—</td><td>基准</td></tr>
+            <tr><td>移除L-shell</td><td>0.458</td><td>0.778</td><td style="color:var(--red)">+19%</td><td style="color:var(--red)">-15%</td><td>空间位置核心价值</td></tr>
+            <tr><td>移除MLT</td><td>0.412</td><td>0.826</td><td style="color:var(--red)">+7%</td><td style="color:var(--red)">-9%</td><td>时间动态捕获</td></tr>
+            <tr><td>移除L+MLT</td><td>0.586</td><td>0.712</td><td style="color:var(--red)">+52%</td><td style="color:var(--red)">-22%</td><td>时空特征不可替代</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">模型复杂度消融（工程成本-性能权衡）</div>
+      <ul>
+        <li>系统对比11种隐含层配置：单层[256]验证损失0.101 → 三层[256,64,32]降至0.073（-28%）</li>
+        <li>训练时间从1455秒增至2739秒（+88%）→ 为产品交付提供"性能-成本"帕累托前沿</li>
+        <li>最终选择[256,64,32]：在RMSE(0.385)、R(0.911)、训练效率间取得最优平衡</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 五、跨域取舍 -->
+  <div class="section">
+    <div class="section-title">
+      <div class="icon icon-bg-5">05</div>
+      跨域协作与复杂问题取舍
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">技术-物理-工程三维取舍</div>
+      <div class="warn-box">
+        <strong>高能电子预测瓶颈识别：</strong>612keV@0°投掷角R值在L>5.5后骤降至0.2以下——判断为低投掷角高能电子与磁场复杂相互作用（磁镜效应、各向异性传输）的<strong>物理机制层面限制</strong>，而非模型容量不足，避免盲目堆参数的无效投入。
+      </div>
+      <ul>
+        <li><strong>能量通道优先级：</strong>基于卫星屏蔽穿透深度分析，确定40-130keV为工程最相关能量段，第一版聚焦于此而非全能量段覆盖</li>
+        <li><strong>数据源差异化定位：</strong>选择POES/MetOp低投掷角数据填补Van Allen Probes覆盖空白，差异化产品价值</li>
+        <li><strong>场景驱动而非技术驱动：</strong>从"商业航天卫星辐射风险"出发，而非从AI技术出发找场景</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">场景-技术-商业闭环</div>
+      <ul>
+        <li>将模糊的"空间天气预报"拆解为可量化验收的"特定能量-投掷角-L壳值区间电子通量预测"</li>
+        <li>以消融实验和真实事件验证回答"模型什么条件下可靠、什么条件下不可靠"</li>
+        <li>为PoC验收提供明确标准：静默期98.2% vs 磁暴期91.3%，边界清晰可执行</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 六、能力映射 -->
+  <div class="section">
+    <div class="section-title">
+      <div class="icon icon-bg-6">06</div>
+      核心能力映射（对标岗位要求）
+    </div>
+    <div class="cap-map">
+      <div class="cap-label">真实场景理解</div>
+      <div class="cap-value">从商业航天卫星辐射风险出发，区分"学术预测精度"与"工程可用预警"</div>
+      <div class="cap-label">商业价值判断</div>
+      <div class="cap-value">明确预算来源（卫星保险/运维）、决策链（运营商-保险-监管）、ROI（避免单星百万级损失）</div>
+      <div class="cap-label">0-1产品设计</div>
+      <div class="cap-value">将"空间天气预报"拆解为可执行产品方案（特定能量/投掷角/L壳值区间的通量预测）</div>
+      <div class="cap-label">AI工具与原型</div>
+      <div class="cap-value">独立完成数据工程→模型训练→消融验证→真实事件测试全链路，产出可验证结果</div>
+      <div class="cap-label">跨团队推进</div>
+      <div class="cap-value">在空间物理、深度学习、卫星工程三领域间做技术判断与取舍</div>
+      <div class="cap-label">结构化表达</div>
+      <div class="cap-value">消融实验量化每个变量贡献，明确模型能力边界与适用条件</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
